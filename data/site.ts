@@ -13,7 +13,6 @@ export const siteData = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Sell Your Property", href: "/sell" },
-    { label: "Opportunities", href: "/opportunities" },
     { label: "Investor Network", href: "/buyers" },
     { label: "Partners", href: "/partners" },
     { label: "About", href: "/about" },

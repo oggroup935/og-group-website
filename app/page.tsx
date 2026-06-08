@@ -6,7 +6,6 @@ import {
   WhyOG,
   FinalCTA,
 } from "@/components/home/HomeSections";
-import { Featured } from "@/components/home/Featured";
 
 export default function HomePage() {
   return (
@@ -16,7 +15,6 @@ export default function HomePage() {
       <WhoWeHelp />
       <HowItWorks />
       <WhyOG />
-      <Featured />
       <FinalCTA />
     </>
   );

@@ -80,7 +80,7 @@ export default function BuyerWizard() {
       <FormSuccess
         title="Welcome To The Network"
         message="You're on the list. We'll review your profile and reach out with opportunities that fit your strategy. Private, confidential, and no spam."
-        homeHref="/opportunities"
+        homeHref="/"
       />
     );
   }
