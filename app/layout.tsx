@@ -39,9 +39,16 @@ export const metadata: Metadata = {
     title: "OG GROUP — Cleveland Investment Properties",
     description:
       "Off-market real estate opportunities in Cleveland. We connect motivated sellers with serious investors.",
+    url: `https://${siteData.domain}`,
     type: "website",
     locale: "en_US",
     siteName: "OG GROUP",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OG GROUP — Cleveland Investment Properties",
+    description:
+      "Off-market real estate opportunities in Cleveland. We connect motivated sellers with serious investors.",
   },
 };
 
