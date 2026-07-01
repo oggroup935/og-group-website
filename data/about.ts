@@ -5,13 +5,13 @@ export const aboutData = {
     eyebrow: "The Story Behind OG GROUP",
     headline: "Built On Vision, Systems, And Trust",
     subtitle:
-      "OG GROUP is a Cleveland-focused real estate investment platform connecting motivated sellers, serious investors, and strategic partners.",
+      "OG GROUP is a Cleveland-focused real estate investment platform connecting sellers, serious investors, and strategic partners.",
   },
 
   mission: {
     title: "Our Mission",
     body:
-      "OG GROUP connects motivated sellers, serious investors, and strategic partners through off-market real estate opportunities in Cleveland, Ohio — with professionalism, transparency, and a long-term mindset.",
+      "OG GROUP connects sellers, serious investors, and strategic partners through real estate opportunities in Cleveland, Ohio — with professionalism, transparency, and a long-term mindset.",
   },
 
   vision: {
@@ -22,7 +22,7 @@ export const aboutData = {
 
   // Section 4 — What Drives Us (Four Pillars)
   pillars: [
-    { title: "Ambition", icon: Flame, description: "We are motivated by growth and the pursuit of excellence." },
+    { title: "Ambition", icon: Flame, description: "We are driven by growth and the pursuit of excellence." },
     { title: "Discipline", icon: Target, description: "We believe consistency beats motivation." },
     { title: "Relationships", icon: Handshake, description: "The strongest businesses are built on trust." },
     { title: "Long-Term Thinking", icon: Clock, description: "We are focused on where we will be years from now, not weeks from now." },

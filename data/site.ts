@@ -2,7 +2,7 @@
 export const siteData = {
   name: "OG GROUP",
   tagline: "Real Estate Wholesaling",
-  fullTagline: "Off-Market Real Estate Opportunities",
+  fullTagline: "Real Estate Opportunities",
   domain: "ordavidguyrealestate.com",
   phone: "(216) 677-9031",
   phoneHref: "tel:+12166779031",

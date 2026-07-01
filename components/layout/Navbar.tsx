@@ -22,33 +22,42 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the mobile menu on route change.
   useEffect(() => setOpen(false), [pathname]);
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
+        "fixed top-0 z-50 w-full transition-all duration-500",
         scrolled
-          ? "border-b border-navy/10 bg-cream/85 backdrop-blur-md"
-          : "border-b border-transparent bg-cream"
+          ? "border-b border-navy/10 bg-cream/95 shadow-sm backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
       )}
     >
-      <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
+      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label="OG GROUP home">
           <Image
             src="/logo.png"
             alt="OG GROUP"
-            width={48}
-            height={48}
-            className="h-11 w-11 rounded-md object-contain"
+            width={52}
+            height={52}
+            className="h-12 w-12 rounded-md object-contain"
             priority
           />
           <span className="hidden flex-col leading-none sm:flex">
-            <span className="font-display text-lg font-semibold tracking-tight text-navy">
+            <span
+              className={cn(
+                "font-display text-lg font-semibold tracking-tight transition-colors",
+                scrolled ? "text-navy" : "text-cream"
+              )}
+            >
               OG GROUP
             </span>
-            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-navy/50">
+            <span
+              className={cn(
+                "text-[10px] font-medium uppercase tracking-[0.18em] transition-colors",
+                scrolled ? "text-navy/50" : "text-cream/60"
+              )}
+            >
               Real Estate Wholesaling
             </span>
           </span>
@@ -66,10 +75,13 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
                     active
-                      ? "text-gold-600"
-                      : "text-navy/70 hover:text-navy"
+                      ? "text-gold"
+                      : scrolled
+                        ? "text-navy/70 hover:text-navy"
+                        : "text-cream/80 hover:text-cream",
+                    "after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-gold after:transition-all after:duration-300 hover:after:w-3/4"
                   )}
                 >
                   {item.label}
@@ -86,9 +98,12 @@ export default function Navbar() {
             href={siteData.phoneHref}
             align="right"
             direction="down"
-            className="hidden cursor-pointer items-center gap-2 text-sm font-medium text-navy/70 transition-colors hover:text-navy xl:flex"
+            className={cn(
+              "hidden cursor-pointer items-center gap-2 text-sm font-medium transition-colors xl:flex",
+              scrolled ? "text-navy/70 hover:text-navy" : "text-cream/80 hover:text-cream"
+            )}
           >
-            <Phone className="h-4 w-4 text-gold-600" />
+            <Phone className="h-4 w-4 text-gold" />
             {siteData.phone}
           </ContactPopover>
           <Link
@@ -100,7 +115,10 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md text-navy lg:hidden"
+            className={cn(
+              "inline-flex h-10 w-10 items-center justify-center rounded-md transition-colors lg:hidden",
+              scrolled || open ? "text-navy" : "text-cream"
+            )}
             aria-label="Toggle menu"
             aria-expanded={open}
           >

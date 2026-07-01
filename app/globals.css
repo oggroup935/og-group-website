@@ -21,8 +21,8 @@
 }
 
 :root {
-  --background: #f7f5f2;
-  --foreground: #1a1a1a;
+  --background: #050f24; /* deep navy base — cinematic dark */
+  --foreground: #f7f5f2;
 }
 
 * {
@@ -38,6 +38,34 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+/* Cinematic film-strip marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Respect reduced-motion: disable parallax/transform animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Premium selection */

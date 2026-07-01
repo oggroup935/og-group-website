@@ -15,8 +15,8 @@ import {
 export const homeData = {
   hero: {
     eyebrow: "Cleveland, Ohio",
-    headline: "Off-Market Investment Opportunities in Cleveland",
-    subtitle: "We connect motivated sellers with serious investors.",
+    headline: "Investment Opportunities in Cleveland",
+    subtitle: "We connect sellers with serious investors.",
     primaryCTA: { label: "Get a Cash Offer", href: "/sell" },
     secondaryCTA: { label: "Join Buyers List", href: "/buyers" },
     // Placeholder stock hero (TODO: replace with a real Cleveland property photo).
@@ -44,7 +44,7 @@ export const homeData = {
       title: "Investors",
       icon: Users,
       description:
-        "Serious buyers who want consistent access to off-market opportunities that fit their strategy.",
+        "Serious buyers who want consistent access to opportunities that fit their strategy.",
       cta: { label: "Join the Network", href: "/buyers" },
     },
     {
@@ -126,7 +126,7 @@ export const homeData = {
       },
       {
         title: "Join Our Buyers List",
-        description: "Access off-market opportunities built around real deals.",
+        description: "Access opportunities built around real deals.",
         cta: { label: "Join Buyers List", href: "/buyers" },
       },
       {

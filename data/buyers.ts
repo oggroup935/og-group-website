@@ -16,13 +16,13 @@ export const buyersData = {
     badge: "Private Investor Network",
     headline: "Join A Network Built Around Real Deals",
     subtitle:
-      "Not a generic buyers list — a private network of serious investors with direct access to off-market Cleveland opportunities.",
+      "Not a generic buyers list — a private network of serious investors with direct access to Cleveland opportunities.",
     primaryCTA: { label: "Join The Investor Network", href: "#register" },
   },
 
   // Section 2 — Why Join (4 cards: "Built For Serious Investors")
   whyJoin: [
-    { title: "Off-Market Access", icon: Target, description: "Opportunities you won't find on the MLS, matched to your strategy." },
+    { title: "Direct Access", icon: Target, description: "Opportunities you won't find on the MLS, matched to your strategy." },
     { title: "Verified & Focused", icon: ShieldCheck, description: "A Cleveland-focused pipeline, evaluated through an investment lens." },
     { title: "An Active Network", icon: Network, description: "Real relationships with a team that communicates professionally." },
     { title: "Relationship-Driven", icon: Handshake, description: "Built for long-term partnerships, not one-off transactions." },
@@ -90,6 +90,6 @@ export const buyersData = {
 
   finalCTA: {
     title: "Let's Build Something Long-Term",
-    subtitle: "Join a network of serious investors with access to real off-market opportunities.",
+    subtitle: "Join a network of serious investors with access to real opportunities.",
   },
 };

@@ -12,24 +12,24 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-1">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <Image
                 src="/logo.png"
                 alt="OG GROUP"
-                width={48}
-                height={48}
-                className="h-12 w-12 rounded-md bg-cream/95 object-contain p-1"
+                width={72}
+                height={72}
+                className="h-16 w-16 rounded-lg bg-cream/95 object-contain p-1.5"
               />
               <div className="flex flex-col leading-none">
-                <span className="font-display text-lg font-semibold">OG GROUP</span>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-cream/50">
+                <span className="font-display text-2xl font-semibold">OG GROUP</span>
+                <span className="mt-1 text-[10px] uppercase tracking-[0.18em] text-cream/50">
                   Real Estate Wholesaling
                 </span>
               </div>
             </div>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream/60">
-              Off-market real estate opportunities in Cleveland. We connect
-              motivated sellers with serious investors.
+              Real estate opportunities in Cleveland. We connect
+              sellers with serious investors.
             </p>
           </div>
 
@@ -110,7 +110,7 @@ export default function Footer() {
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-cream/10 pt-7 text-xs text-cream/50 sm:flex-row">
           <p>© {year} OG GROUP. All rights reserved.</p>
           <p className="text-cream/40">
-            Off-Market Real Estate Opportunities · Cleveland, Ohio
+            Real Estate Opportunities · Cleveland, Ohio
           </p>
         </div>
       </div>

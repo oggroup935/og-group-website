@@ -10,7 +10,7 @@ export const contactData = {
   // How Can We Help? — 4 cards
   routes: [
     { type: "Property Owner", title: "Property Owners", button: "Seller Inquiry", icon: Building2, description: "You own a property and want to explore selling." },
-    { type: "Investor", title: "Investors", button: "Investor Inquiry", icon: Users, description: "You want access to off-market opportunities." },
+    { type: "Investor", title: "Investors", button: "Investor Inquiry", icon: Users, description: "You want access to investment opportunities." },
     { type: "Strategic Partner", title: "Strategic Partners", button: "Partnership Inquiry", icon: Handshake, description: "You want to partner and build together." },
     { type: "General", title: "General", button: "General Inquiry", icon: MessageSquare, description: "Something else? We're happy to help." },
   ],

@@ -6,6 +6,8 @@ import { Container, Section } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Reveal } from "@/components/shared/Reveal";
 import { PageHero } from "@/components/shared/PageHero";
+import { ImageBand } from "@/components/shared/ImageBand";
+import { images } from "@/lib/images";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -19,20 +21,25 @@ export default function AboutPage() {
   const d = aboutData;
   return (
     <>
-      <PageHero eyebrow={d.hero.eyebrow} title={d.hero.headline} subtitle={d.hero.subtitle} />
+      <PageHero
+        eyebrow={d.hero.eyebrow}
+        title={d.hero.headline}
+        subtitle={d.hero.subtitle}
+        image={images.parkWaterfront}
+      />
 
       {/* Mission + Vision */}
-      <Section className="bg-cream">
+      <Section className="bg-navy">
         <Container>
           <div className="grid gap-6 lg:grid-cols-2">
             <Reveal>
-              <div className="h-full rounded-2xl border border-navy/10 bg-white p-8 shadow-sm">
-                <h2 className="font-display text-2xl font-semibold text-navy">{d.mission.title}</h2>
-                <p className="mt-4 leading-relaxed text-navy/65">{d.mission.body}</p>
+              <div className="h-full rounded-2xl border border-cream/10 bg-cream/[0.04] p-8 shadow-sm">
+                <h2 className="font-display text-2xl font-semibold text-cream">{d.mission.title}</h2>
+                <p className="mt-4 leading-relaxed text-cream/65">{d.mission.body}</p>
               </div>
             </Reveal>
             <Reveal delay={1}>
-              <div className="h-full rounded-2xl border border-navy/10 bg-navy p-8 text-cream shadow-sm">
+              <div className="h-full rounded-2xl border border-cream/10 bg-navy p-8 text-cream shadow-sm">
                 <h2 className="font-display text-2xl font-semibold text-gold">{d.vision.title}</h2>
                 <p className="mt-4 leading-relaxed text-cream/70">{d.vision.body}</p>
               </div>
@@ -42,7 +49,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Four Pillars */}
-      <Section className="bg-white">
+      <Section className="bg-cream/[0.04]">
         <Container>
           <SectionHeading
             eyebrow="What Drives Us"
@@ -54,12 +61,12 @@ export default function AboutPage() {
               const Icon = p.icon;
               return (
                 <Reveal key={p.title} delay={i}>
-                  <div className="h-full rounded-2xl border border-navy/10 bg-cream/60 p-7">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-gold">
+                  <div className="h-full rounded-2xl border border-cream/10 bg-cream/[0.04] p-7">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold/15 text-gold">
                       <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="mt-5 font-display text-xl font-semibold text-navy">{p.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-navy/60">{p.description}</p>
+                    <h3 className="mt-5 font-display text-xl font-semibold text-cream">{p.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-cream/60">{p.description}</p>
                   </div>
                 </Reveal>
               );
@@ -67,6 +74,12 @@ export default function AboutPage() {
           </div>
         </Container>
       </Section>
+
+      <ImageBand
+        src={images.streetAlt1}
+        alt="Tree-lined residential street"
+        kicker="Cleveland, Ohio"
+      />
 
       {/* Why Real Estate */}
       <Section className="bg-navy text-cream">
@@ -79,29 +92,24 @@ export default function AboutPage() {
       </Section>
 
       {/* A Note From The Founders (placeholder) */}
-      <Section className="bg-cream">
+      <Section className="bg-navy">
         <Container className="max-w-3xl">
           <Reveal>
-            <figure className="relative rounded-3xl border border-gold/30 bg-white p-8 shadow-sm sm:p-12">
+            <figure className="relative rounded-3xl border border-gold/30 bg-cream/[0.04] p-8 shadow-sm sm:p-12">
               <Quote className="absolute -top-5 left-8 h-12 w-12 text-gold/30" />
-              <h2 className="font-display text-2xl font-semibold text-navy">
+              <h2 className="font-display text-2xl font-semibold text-cream">
                 {d.foundersNote.title}
               </h2>
-              <blockquote className="mt-5 text-lg leading-relaxed text-navy/70">
+              <blockquote className="mt-5 text-lg leading-relaxed text-cream/70">
                 {d.foundersNote.body}
               </blockquote>
-              {d.foundersNote.isPlaceholder && (
-                <figcaption className="mt-5 text-xs font-medium uppercase tracking-wider text-amber-600">
-                  Placeholder — final founders&apos; story pending
-                </figcaption>
-              )}
             </figure>
           </Reveal>
         </Container>
       </Section>
 
       {/* Final CTA */}
-      <Section className="bg-white">
+      <Section className="bg-cream/[0.04]">
         <Container className="max-w-3xl text-center">
           <SectionHeading eyebrow="Get Started" title={d.finalCTA.title} subtitle={d.finalCTA.subtitle} />
           <div className="mt-8 flex flex-col flex-wrap justify-center gap-3 sm:flex-row">

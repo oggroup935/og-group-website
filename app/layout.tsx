@@ -23,22 +23,22 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL(`https://${siteData.domain}`),
   title: {
-    default: "OG GROUP | Off-Market Investment Properties in Cleveland",
+    default: "OG GROUP | Investment Properties in Cleveland",
     template: "%s | OG GROUP",
   },
   description:
-    "Off-market real estate opportunities in Cleveland. We connect motivated sellers with serious investors.",
+    "Real estate opportunities in Cleveland. We connect sellers with serious investors.",
   keywords: [
     "Cleveland Wholesale Real Estate",
     "Cash Home Buyers Cleveland",
     "Sell My House Fast Cleveland",
-    "Off Market Properties Cleveland",
+    "Cleveland Real Estate Opportunities",
     "Cleveland Investment Properties",
   ],
   openGraph: {
     title: "OG GROUP — Cleveland Investment Properties",
     description:
-      "Off-market real estate opportunities in Cleveland. We connect motivated sellers with serious investors.",
+      "Real estate opportunities in Cleveland. We connect sellers with serious investors.",
     url: `https://${siteData.domain}`,
     type: "website",
     locale: "en_US",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OG GROUP — Cleveland Investment Properties",
     description:
-      "Off-market real estate opportunities in Cleveland. We connect motivated sellers with serious investors.",
+      "Real estate opportunities in Cleveland. We connect sellers with serious investors.",
   },
 };
 
@@ -62,9 +62,9 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-cream text-navy">
+      <body className="min-h-full flex flex-col bg-navy text-cream">
         <Navbar />
-        <main className="flex-1 pb-14 sm:pb-0">{children}</main>
+        <main className="flex-1 pt-20 pb-14 sm:pb-0">{children}</main>
         <Footer />
         <MobileBar />
       </body>

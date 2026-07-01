@@ -67,7 +67,7 @@ export const jvData = {
   whyCleveland: {
     title: "Why Cleveland",
     body:
-      "Cleveland offers strong rental fundamentals, accessible price points, and consistent investor demand. It's a market where focused, off-market acquisition strategies create real opportunity.",
+      "Cleveland offers strong rental fundamentals, accessible price points, and consistent investor demand. It's a market where focused acquisition strategies create real opportunity.",
   },
 
   // Section 6 — Why Acquisition Partners Work With Us
@@ -88,8 +88,8 @@ export const jvData = {
 
   // Section 8 — Partnership Models
   partnershipModels: [
-    { title: "Acquisition Partner", icon: Eye, description: "You source off-market deals; we bring buyers, systems, and dispo." },
-    { title: "Closing Partner", icon: Magnet, description: "We bring the deal flow and motivated sellers — you help nurture and close." },
+    { title: "Acquisition Partner", icon: Eye, description: "You source deals; we bring buyers, systems, and dispo." },
+    { title: "Closing Partner", icon: Magnet, description: "We bring the deal flow and sellers — you help nurture and close." },
     { title: "Dispo Partnership", icon: Network, description: "You bring buyers; we bring inventory and structure." },
   ],
 

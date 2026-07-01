@@ -5,6 +5,8 @@ import { Container, Section } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Reveal } from "@/components/shared/Reveal";
 import { PageHero } from "@/components/shared/PageHero";
+import { ImageBand } from "@/components/shared/ImageBand";
+import { images } from "@/lib/images";
 import SellWizard from "@/components/forms/SellWizard";
 
 export const metadata: Metadata = {
@@ -22,10 +24,11 @@ export default function SellPage() {
         title={d.hero.headline}
         subtitle={d.hero.subtitle}
         badges={d.benefitsStrip}
+        image={images.standoutHome}
       />
 
       {/* Why Sellers Work With Us */}
-      <Section className="bg-cream">
+      <Section className="bg-navy">
         <Container>
           <SectionHeading
             eyebrow="Why Sellers Work With Us"
@@ -37,12 +40,12 @@ export default function SellPage() {
               const Icon = item.icon;
               return (
                 <Reveal key={item.title} delay={i}>
-                  <div className="h-full rounded-2xl border border-navy/10 bg-white p-6 shadow-sm">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy text-gold">
+                  <div className="h-full rounded-2xl border border-cream/10 bg-cream/[0.04] p-6">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold/15 text-gold">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="mt-4 font-display text-lg font-semibold text-navy">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-navy/60">{item.description}</p>
+                    <h3 className="mt-4 font-display text-lg font-semibold text-cream">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-cream/60">{item.description}</p>
                   </div>
                 </Reveal>
               );
@@ -52,16 +55,16 @@ export default function SellPage() {
       </Section>
 
       {/* Selling Process */}
-      <Section className="bg-white">
+      <Section className="bg-navy-700">
         <Container>
           <SectionHeading eyebrow="Selling Process" title="Four Simple Steps" />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {d.process.map((s, i) => (
               <Reveal key={s.step} delay={i}>
-                <div className="h-full rounded-2xl border border-navy/10 bg-cream/60 p-6">
+                <div className="h-full rounded-2xl border border-cream/10 bg-cream/[0.04] p-6">
                   <span className="font-display text-4xl font-semibold text-gold/30">{s.step}</span>
-                  <h3 className="mt-3 font-display text-lg font-semibold text-navy">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-navy/60">{s.description}</p>
+                  <h3 className="mt-3 font-display text-lg font-semibold text-cream">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-cream/60">{s.description}</p>
                 </div>
               </Reveal>
             ))}
@@ -86,8 +89,14 @@ export default function SellPage() {
         </Container>
       </Section>
 
+      <ImageBand
+        src={images.streetAlt1}
+        alt="Tree-lined residential street"
+        kicker="Cleveland, Ohio"
+      />
+
       {/* Submission Form */}
-      <Section id="submit" className="bg-cream">
+      <Section id="submit" className="bg-navy">
         <Container className="max-w-3xl">
           <SectionHeading
             eyebrow="Property Submission"
@@ -100,13 +109,13 @@ export default function SellPage() {
 
           {/* After You Reach Out */}
           <Reveal>
-            <div className="mt-10 flex gap-4 rounded-2xl border border-gold/30 bg-gold-soft p-6">
-              <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-gold-600" />
+            <div className="mt-10 flex gap-4 rounded-2xl border border-gold/30 bg-gold/10 p-6">
+              <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-gold" />
               <div>
-                <h3 className="font-display text-lg font-semibold text-navy">
+                <h3 className="font-display text-lg font-semibold text-cream">
                   {d.afterYouReachOut.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-navy/70">
+                <p className="mt-1.5 text-sm leading-relaxed text-cream/70">
                   {d.afterYouReachOut.description}
                 </p>
               </div>

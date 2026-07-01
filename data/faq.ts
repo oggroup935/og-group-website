@@ -57,7 +57,7 @@ export const faqData = {
         {
           question: "What opportunities do you typically share?",
           answer:
-            "Off-market opportunities in the Cleveland market — single family, small multifamily, fourplexes, rental portfolios, value-add, and distressed properties — shared to match your investment strategy.",
+            "Opportunities in the Cleveland market — single family, small multifamily, fourplexes, rental portfolios, value-add, and distressed properties — shared to match your investment strategy.",
         },
         {
           question: "Do I need to be local?",
