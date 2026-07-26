@@ -1,4 +1,6 @@
-# Staging preview
+# OG Group Holdings LLC — seller site
 
-A temporary, non-indexed staging copy of the OG seller site, published only so the
-contact form can be exercised from a real https origin. Not the production site.
+Static production build of the seller-facing site (oggroupholdingsllc.com).
+Built from the private design sources; `index.html` is self-contained
+(fonts and images embedded). Deployed via Vercel, production branch:
+`sellers-preview`.
