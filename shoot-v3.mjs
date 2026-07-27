@@ -1,0 +1,16 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+const errs=[]; page.on('pageerror',e=>errs.push(e.message));
+await page.goto('file:///root/site-audit/og-site-v3.html', { waitUntil: 'load' });
+await page.waitForTimeout(2500);
+await page.screenshot({ path: 'v3-1-hero.png' });
+await page.evaluate(() => document.querySelector('#machine').scrollIntoView());
+await page.waitForTimeout(1500); await page.screenshot({ path: 'v3-2-machine.png' });
+await page.evaluate(() => { const e=document.querySelector('#sunrise'); window.scrollTo(0,e.offsetTop+e.offsetHeight*0.62); });
+await page.waitForTimeout(1200); await page.screenshot({ path: 'v3-3-sunrise.png' });
+await page.evaluate(() => document.querySelector('#doors').scrollIntoView());
+await page.waitForTimeout(1500); await page.screenshot({ path: 'v3-4-doors.png' });
+console.log(errs.length?('ERR: '+errs.join(' | ')):'no errors');
+await browser.close();

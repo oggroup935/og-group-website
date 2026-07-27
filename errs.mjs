@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+const errs = [];
+page.on('pageerror', e => errs.push('PAGEERROR: ' + e.message));
+page.on('console', m => { if (m.type()==='error') errs.push('CONSOLE: ' + m.text()); });
+await page.goto('file:///root/site-audit/og-homepage-v2.html', { waitUntil: 'load' });
+await page.waitForTimeout(2000);
+console.log(errs.length ? errs.join('\n') : 'NO ERRORS');
+await browser.close();

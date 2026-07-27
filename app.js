@@ -71,6 +71,56 @@ window.faqTab=(t,btn)=>{$$('.tabs button').forEach(b=>b.classList.remove('on'));
   FAQTABS.forEach(k=>{const el=$('#faq-'+k);if(!el)return;el.style.display=k===t?'block':'none';
     if(k===t)el.querySelectorAll('.rv').forEach(r=>r.classList.add('on'));});};
 
+
+/* ---- THE DIVE ---------------------------------------------------------- */
+/* Fictional dataset. Names, addresses and numbers are INVENTED — plausible
+   Cleveland flavor, zero real people. The visible chip on the screen says so. */
+const DV_LEADS=[
+  ['82','Marcus Bell','4127 Maplecrest Ave, Cleveland 44109','hot','$142K'],
+  ['79','Rita Kowalski','1093 Ashford Rd, Parma 44134','warm','$118K'],
+  ['77','Dennis Okafor','2214 Birchwood Ct, Lakewood 44107','warm','$205K'],
+  ['74','Gloria Stanton','886 Fernhill Dr, Euclid 44117','warm','$96K'],
+  ['71','Ray Delgado','3340 Cobbler Ln, Garfield Hts 44125','warm','$130K'],
+  ['68','June Marsh','512 Willow Bend Ave, Cleveland 44102','warm','$155K'],
+];
+const dvRows=$('#osRows');
+if(dvRows){
+  dvRows.innerHTML=DV_LEADS.map(l=>
+    '<div class="os-row"><div class="sc">'+l[0]+'</div><div><div class="nm">'+l[1]+
+    '</div><div class="ad">'+l[2]+'</div></div><div class="tg '+l[3]+'">'+l[3].toUpperCase()+
+    '</div><div class="pr">'+l[4]+'</div></div>').join('');
+}
+const dive=$('#dive'),dvMon=$('#dvMon'),dvBezel=$('#dvBezel'),dvStand=$('#dvStand'),
+      dvHead=$('#dvHead'),dvCap=$('#dvCap'),osLeads=$('#osLeads'),osRehab=$('#osRehab');
+const dvNarrow=matchMedia('(max-width:860px)');
+function diveScroll(){
+  if(!dive||dvNarrow.matches)return;
+  const r=dive.getBoundingClientRect();
+  const total=r.height-innerHeight;
+  const p=Math.min(1,Math.max(0,-r.top/total));   /* 0..1 through the section */
+  const z=Math.min(1,Math.max(0,(p-.05)/.24));   /* zoom waits a beat, then flies */
+  const e=1-Math.pow(1-z,3);                       /* easeOutCubic */
+  dvMon.style.setProperty('--dvs',(.42+.82*e).toFixed(4));
+  dvMon.style.setProperty('--dvy',(22-24*e).toFixed(2)+'vh');
+  dvBezel.style.opacity=dvStand.style.opacity=String(1-e);
+  const nav=$('#nav');if(nav){const full=e>.85&&p<.985;nav.style.opacity=full?'0':'1';nav.style.pointerEvents=full?'none':'auto';nav.style.transition='opacity .4s';}
+  dvHead.style.opacity=String(Math.max(0,1-z*2.2));
+  dvCap.style.opacity=p>.02&&p<.24?'1':'0';
+  const rows=dvRows?dvRows.children:[];
+  const lit=p>.30&&p<.52?Math.min(rows.length-1,Math.floor((p-.30)/.22*rows.length)):-1;
+  for(let i=0;i<rows.length;i++)rows[i].classList.toggle('lit',i===lit);
+  const rehabOn=p>=.54;
+  osLeads.classList.toggle('off',rehabOn);
+  osRehab.classList.toggle('off',!rehabOn);
+  if(rehabOn){
+    const q=Math.min(1,(p-.54)/.34);
+    $$('#osRehab .os-box').forEach((b,i)=>b.classList.toggle('show',q>.12+i*.14));
+    $$('#osRehab .os-line').forEach((l,i)=>l.classList.toggle('show',q>.18+i*.15));
+  }
+}
+addEventListener('scroll',diveScroll,{passive:true});
+diveScroll();
+
 /* ---- boot ---- */
 observeView('lobby');
 $$('#v-lobby .decrypt').forEach((el,i)=>setTimeout(()=>decrypt(el),400+i*250));

@@ -1,0 +1,21 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+const errs=[]; page.on('pageerror',e=>errs.push(e.message));
+await page.goto('file:///root/site-audit/og-site-v3.html', { waitUntil: 'load' });
+await page.waitForTimeout(1500);
+// move mouse over a cube then open lightbox to check cursor on black
+await page.mouse.move(700, 450);
+await page.waitForTimeout(400);
+await page.evaluate(() => document.querySelector('#machine').scrollIntoView());
+await page.waitForTimeout(800);
+await page.mouse.move(720, 500);
+await page.waitForTimeout(400);
+await page.evaluate(() => document.querySelectorAll('.cube.clip')[0].click());
+await page.waitForTimeout(1500);
+await page.mouse.move(720, 450);
+await page.waitForTimeout(500);
+await page.screenshot({ path: 'cur-lightbox.png' });
+console.log(errs.length?('ERR: '+errs.join(' | ')):'no errors');
+await browser.close();

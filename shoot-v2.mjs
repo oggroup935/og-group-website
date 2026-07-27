@@ -1,0 +1,24 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+await page.goto('file:///root/site-audit/og-homepage-v2.html', { waitUntil: 'load' });
+await page.waitForTimeout(2500);
+await page.screenshot({ path: 'v2-1-hero.png' });
+await page.evaluate(() => document.getElementById('os').scrollIntoView());
+await page.waitForTimeout(1800);
+await page.screenshot({ path: 'v2-2-os.png' });
+await page.evaluate(() => { const el = document.getElementById('sunrise'); window.scrollTo(0, el.offsetTop + el.offsetHeight * 0.5); });
+await page.waitForTimeout(1200);
+await page.screenshot({ path: 'v2-3-sunrise.png' });
+await page.evaluate(() => document.getElementById('paths').scrollIntoView());
+await page.waitForTimeout(1500);
+await page.screenshot({ path: 'v2-4-paths.png' });
+// open lightbox
+await page.evaluate(() => { window.scrollTo(0, document.getElementById('os').offsetTop); });
+await page.waitForTimeout(800);
+await page.evaluate(() => openLB('v1'));
+await page.waitForTimeout(2500);
+await page.screenshot({ path: 'v2-5-lightbox.png' });
+console.log('done');
+await browser.close();

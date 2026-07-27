@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await ctx.newPage();
+const errs=[]; page.on('pageerror',e=>errs.push(e.message));
+await page.goto('file:///root/site-audit/og-site-v3.html', { waitUntil: 'load' });
+await page.waitForTimeout(1800);
+await page.evaluate(() => document.querySelector('#machine').scrollIntoView());
+await page.waitForTimeout(1500);
+await page.screenshot({ path: 'fix-cubes.png' });
+console.log(errs.length?('ERR: '+errs.join(' | ')):'no errors');
+await browser.close();

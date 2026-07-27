@@ -69,6 +69,7 @@ SUB={
  '__JS__':open('app.js').read(),
  '__VFIELD__':clip('use-field.mp4'),'__VNET__':clip('use-net.mp4'),'__VREHAB__':clip('use-rehab.mp4'),
  '__P1__':jpg('poster1.jpg'),'__P2__':jpg('poster2.jpg'),'__P3__':jpg('poster3.jpg'),
+ '__DVPHOTO__':'data:image/webp;base64,'+b64('/root/seller-site/assets/close.webp'),
 }
 H=open('template.html').read()
 # inject JS/video refs first (they contain __VFIELD__ etc inside app.js), then everything
