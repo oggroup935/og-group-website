@@ -76,13 +76,24 @@ window.faqTab=(t,btn)=>{$$('.tabs button').forEach(b=>b.classList.remove('on'));
 /* Fictional dataset. Names, addresses and numbers are INVENTED — plausible
    Cleveland flavor, zero real people. The visible chip on the screen says so. */
 const DV_LEADS=[
-  ['82','Marcus Bell','4127 Maplecrest Ave, Cleveland 44109','hot','$142K'],
+  ['86','Marcus Bell','4127 Maplecrest Ave, Cleveland 44109','hot','$142K'],
+  ['83','Tanya Brooks','2731 Oakport Dr, Cleveland Hts 44118','hot','$168K'],
   ['79','Rita Kowalski','1093 Ashford Rd, Parma 44134','warm','$118K'],
   ['77','Dennis Okafor','2214 Birchwood Ct, Lakewood 44107','warm','$205K'],
   ['74','Gloria Stanton','886 Fernhill Dr, Euclid 44117','warm','$96K'],
   ['71','Ray Delgado','3340 Cobbler Ln, Garfield Hts 44125','warm','$130K'],
   ['68','June Marsh','512 Willow Bend Ave, Cleveland 44102','warm','$155K'],
 ];
+/* the console feels alive: the LIVE ticker breathes while the dive is on screen */
+const dvLive=document.querySelector('.os-live');
+let dvT=0;
+setInterval(()=>{
+  if(!dvLive)return;const r=dive&&dive.getBoundingClientRect();
+  if(!r||r.bottom<0||r.top>innerHeight)return;
+  dvT++;
+  const calls=118+Math.floor(dvT/3)%7, convos=12+Math.floor(dvT/9)%3;
+  dvLive.innerHTML='<i>●</i> LIVE · POOL 214 · CALLS TODAY '+calls+' · CONVOS '+convos;
+},1400);
 const dvRows=$('#osRows');
 if(dvRows){
   dvRows.innerHTML=DV_LEADS.map(l=>
