@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OG GROUP — Cleveland, Systemized</title>
+<title>OG OS — The Network Console · OG Group Holdings LLC</title>
+<meta name="description" content="Step inside OG OS — the system that runs Cleveland's off-market: live field map, scored leads, AI underwriting, and a matched investor network. Interactive demo, fictional data.">
 <style>
 __FONTCSS__
 :root{
@@ -390,6 +391,7 @@ html,body{height:100%;}
 #entry.gone{opacity:0;transform:scale(1.06);pointer-events:none;}
 .en-sky{position:absolute;left:0;right:0;bottom:-2px;opacity:.5;pointer-events:none;}
 .en-sky svg{width:100%;height:auto;display:block;}
+.en-sky .skl{position:static;opacity:1!important;}
 .en-core{position:relative;text-align:center;padding:0 20px;max-width:760px;}
 .en-logo{width:74px;margin-bottom:26px;filter:drop-shadow(0 6px 24px rgba(201,164,92,.35));}
 .en-lines .el{opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
@@ -510,7 +512,7 @@ html,body{height:100%;}
 <div id="os" class="hidden">
   <div class="os-top">
     <div class="os-logo">OG <b>OS</b> · Network Console</div>
-    <div class="os-search">Search leads, deals, investors…</div>
+    <input class="os-search" id="osSearch" placeholder="Search leads, deals, investors…" autocomplete="off">
     <div class="os-live"><i>●</i> LIVE · POOL 214 · HOT 9 · WARM 41</div>
   </div>
   <div class="os-body">

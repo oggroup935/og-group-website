@@ -15,6 +15,8 @@ setTimeout(()=>{$('#enterBtn').classList.add('on');$('.en-aud').classList.add('o
 function enterOS(){entry.classList.add('gone');os.classList.remove('hidden');
   setTimeout(()=>{entry.remove();},900);osGo(location.hash.replace('#','')||'deck');}
 $('#enterBtn').addEventListener('click',enterOS);
+addEventListener('wheel',function w(e){if(document.body.contains(entry)&&!entry.classList.contains('gone')&&e.deltaY>8){enterOS();removeEventListener('wheel',w);}},{passive:true});
+addEventListener('keydown',e=>{if(e.key==='Enter'&&document.body.contains(entry)&&!entry.classList.contains('gone'))enterOS();});
 if(location.hash&&document.getElementById('osv-'+location.hash.replace('#',''))){enterOS();}
 
 /* ================= ROUTER ================= */
@@ -25,11 +27,13 @@ function osGo(id){
   $$('.os-view').forEach(v=>v.classList.remove('on'));
   $('#osv-'+id).classList.add('on');
   $$('#osSide .it').forEach(it=>it.classList.toggle('on',it.dataset.os===id));
-  history.replaceState(null,'','#'+id);
+  if(!osGo._silent)history.pushState({os:id},'','#'+id);
   const main=$('#osMain');if(main)main.scrollTop=0;
   if(id==='field'&&!fiMapBuilt)setTimeout(buildMap,60);
   if(id==='rehab')setTimeout(runRehab,350);
 }
+addEventListener('popstate',e=>{const id=(e.state&&e.state.os)||location.hash.replace('#','')||'deck';
+  osGo._silent=true;osGo(id);osGo._silent=false;});
 document.addEventListener('click',e=>{
   const t=e.target.closest('[data-os]');
   if(t&&t.dataset.os){osGo(t.dataset.os);}
@@ -165,6 +169,16 @@ const ptBtn=$('#ptSend');
 if(ptBtn)ptBtn.addEventListener('click',()=>osSend(ptBtn,$('#ptNote'),
  {name:$('#pt_name'),phone:$('#pt_phone'),email:$('#pt_email'),role:$('#pt_role'),note:$('#pt_note')},
  'Partner Desk application — network site'));
+
+/* ================= SEARCH ================= */
+const osSearch=$('#osSearch');
+if(osSearch){
+  osSearch.addEventListener('focus',()=>{if(!$('#osv-leads').classList.contains('on'))osGo('leads');});
+  osSearch.addEventListener('input',()=>{
+    const q=osSearch.value.trim().toLowerCase();
+    $$('#osRows .os-row').forEach(r=>{r.style.display=!q||r.textContent.toLowerCase().includes(q)?'flex':'none';});
+  });
+}
 
 /* ================= FAQ ================= */
 $$('.faqrow').forEach(r=>r.addEventListener('click',()=>r.classList.toggle('open')));
