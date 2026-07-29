@@ -383,44 +383,159 @@ footer .mono{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.1em;}
 #gravity .gv-ctas{display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap;}
 #gravity .gv-alt{color:#c9b587;font-size:13.5px;letter-spacing:.04em;text-decoration:none;border-bottom:1px solid rgba(201,164,92,.4);padding-bottom:3px;cursor:pointer;}
 
+
+/* ============ ENTRY + OS SHELL (the site IS the app) ============ */
+html,body{height:100%;}
+#entry{position:fixed;inset:0;z-index:50;background:radial-gradient(130% 100% at 50% 0%,#13203a 0%,#0a1120 55%,#060b15 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .7s var(--ease),transform .7s var(--ease);}
+#entry.gone{opacity:0;transform:scale(1.06);pointer-events:none;}
+.en-sky{position:absolute;left:0;right:0;bottom:-2px;opacity:.5;pointer-events:none;}
+.en-sky svg{width:100%;height:auto;display:block;}
+.en-core{position:relative;text-align:center;padding:0 20px;max-width:760px;}
+.en-logo{width:74px;margin-bottom:26px;filter:drop-shadow(0 6px 24px rgba(201,164,92,.35));}
+.en-lines .el{opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.en-lines .el.on{opacity:1;transform:none;}
+.el.e1{font-family:Fraunces,serif;font-weight:900;font-size:clamp(30px,4.6vw,54px);color:#f6f2ea;line-height:1.1;}
+.el.e2{font-family:Archivo,sans-serif;font-size:clamp(14px,1.6vw,18px);color:#9aa5b8;margin-top:18px;line-height:1.6;}
+.el.e2 b{color:var(--goldv);}
+.el.e3{font-family:Fraunces,serif;font-style:italic;font-weight:600;font-size:clamp(17px,2vw,22px);color:var(--goldv);margin-top:14px;}
+#enterBtn{margin-top:34px;font-size:15px;padding:14px 30px;border:none;cursor:pointer;opacity:0;transition:opacity .8s var(--ease);}
+#enterBtn.on{opacity:1;}
+.en-aud{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.22em;color:#66738c;margin-top:18px;opacity:0;transition:opacity .8s;}
+.en-aud.on{opacity:1;}
+.en-foot{position:absolute;bottom:22px;left:0;right:0;text-align:center;}
+.en-foot a{font-size:11.5px;color:#66738c;text-decoration:none;border-bottom:1px solid rgba(120,132,156,.3);padding-bottom:2px;}
+/* shell */
+#os{position:fixed;inset:0;background:#f7f4ee;display:flex;flex-direction:column;opacity:1;transition:opacity .6s var(--ease);}
+#os.hidden{opacity:0;pointer-events:none;}
+#os .os-top{flex:none;}
+#os .os-body{flex:1;min-height:0;}
+#os .os-side{display:flex;flex-direction:column;width:190px;overflow-y:auto;}
+#os .os-side .it{cursor:pointer;transition:background .25s;}
+#os .os-side .it:hover{background:#f2ecdd;}
+.os-exit{margin-top:auto;padding:14px 16px;border-top:1px solid #e7e2d6;}
+.os-exit a{font-size:10.5px;color:#a8843c;text-decoration:none;}
+#os .os-main{overflow-y:auto;padding:26px 30px;}
+.os-view{display:none;animation:osin .45s var(--ease);}
+.os-view.on{display:block;}
+@keyframes osin{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+#os .os-demo{position:fixed;}
+@media(max-width:860px){
+  #os .os-body{flex-direction:column;}
+  #os .os-side{width:100%;flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:0;border-right:none;border-bottom:1px solid #e7e2d6;}
+  #os .os-side .lb{display:none;}
+  #os .os-side .it{white-space:nowrap;border-right:none!important;padding:12px 13px;font-size:11px;}
+  #os .os-side .it.on{border-bottom:2px solid #c9a45c;background:transparent;}
+  .os-exit{display:none;}
+  #os .os-main{padding:18px 14px;}
+  .en-lines .el.e2{display:none;}
+}
+
+
+/* screens */
+.fict{font-family:'JetBrains Mono',monospace;font-size:9px;color:#a8843c;letter-spacing:.1em;}
+.dk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0;}
+.dk-card{background:#fff;border:1px solid #e7e2d6;border-radius:14px;padding:18px;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s;}
+.dk-card:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(22,35,60,.12);}
+.dk-k{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;color:#a8843c;}
+.dk-card h4{font-family:Sora,sans-serif;font-size:16px;color:#16233c;margin:8px 0 6px;}
+.dk-card p{font-size:12px;color:#7c8595;line-height:1.55;margin:0 0 12px;}
+.dk-go{font-size:11.5px;color:#a8843c;font-weight:600;}
+.dk-map{margin-top:6px;background:linear-gradient(120deg,#16233c,#1d2c4a);border-radius:14px;padding:20px 22px;cursor:pointer;transition:transform .3s var(--ease);}
+.dk-map:hover{transform:translateY(-2px);}
+.dk-mapline{color:#dfe5f0;font-size:13px;}
+.dk-mapline b{color:#e8c06a;}
+.fi-wrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid #e7e2d6;height:min(62vh,560px);}
+#fiMap{position:absolute;inset:0;background:#eef1ea;z-index:1;}
+#fiMap .leaflet-tile{filter:saturate(.55) sepia(.12) brightness(1.02);}
+.fi-pin{background:linear-gradient(135deg,#a8843c,#8c6b2a);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:4px 8px;border-radius:8px;box-shadow:0 6px 16px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.35);white-space:nowrap;transform:translate(-50%,-100%);cursor:pointer;}
+.fi-pin:after{content:'';position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border:5px solid transparent;border-top-color:#8c6b2a;border-bottom:none;}
+.fi-card{position:absolute;right:14px;bottom:14px;z-index:1000;width:260px;background:#fff;border-radius:12px;box-shadow:0 18px 50px rgba(10,17,32,.35);overflow:hidden;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s;pointer-events:none;}
+.fi-card.on{opacity:1;transform:none;pointer-events:auto;}
+.fi-card img{width:100%;height:110px;object-fit:cover;display:block;}
+.fi-body{display:flex;gap:10px;align-items:center;padding:10px 12px 6px;}
+.fi-score{width:36px;height:36px;border-radius:10px;background:#f6efdd;border:1px solid #e2cf9e;display:flex;align-items:center;justify-content:center;font-family:Sora,sans-serif;font-weight:800;font-size:13px;color:#8c6b2a;flex:none;}
+.fi-name{font-weight:700;font-size:12.5px;color:#16233c;}
+.fi-meta{font-size:10.5px;color:#7c8595;}
+.fi-go{display:block;width:calc(100% - 24px);margin:8px 12px 12px;border:none;background:#16233c;color:#f2e6cb;font-size:11px;padding:9px;border-radius:8px;cursor:pointer;}
+.os-run{border:none;cursor:pointer;margin-bottom:14px;font-size:12.5px;padding:10px 18px;}
+.pd-pitch{margin-top:20px;background:#16233c;border-radius:14px;padding:22px;color:#dfe5f0;}
+.pd-pitch h4{font-family:Sora,sans-serif;color:#f2e6cb;margin:0 0 8px;font-size:16px;}
+.pd-pitch p{font-size:12.5px;color:#9fb0cf;margin:0 0 14px;max-width:560px;}
+.pd-pitch .btn-gold{border:none;cursor:pointer;font-size:12.5px;}
+.bd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+.bd-card{background:#fff;border:1px solid #e7e2d6;border-radius:14px;overflow:hidden;}
+.bd-card img{width:100%;height:120px;object-fit:cover;display:block;}
+.bd-b{padding:12px 14px;}
+.bd-t{font-weight:700;font-size:13px;color:#16233c;}
+.bd-m{font-size:10.5px;color:#7c8595;margin:3px 0 8px;}
+.bd-s{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;padding:3px 8px;border-radius:20px;background:#f6e9d4;color:#a8843c;}
+.bd-s.res{background:#e6efe7;color:#2e7d4f;}
+.os-form{background:#fff;border:1px solid #e7e2d6;border-radius:14px;padding:20px;max-width:640px;}
+.os-form h4{font-family:Sora,sans-serif;color:#16233c;margin:0 0 4px;font-size:16px;}
+.os-form p{font-size:12px;color:#7c8595;margin:0 0 14px;}
+.of-row{display:flex;gap:10px;margin-bottom:10px;}
+.of-row input,.of-row select{flex:1;border:1px solid #ddd6c6;border-radius:9px;padding:10px 12px;font-size:12.5px;font-family:Archivo,sans-serif;color:#16233c;background:#faf8f3;min-width:0;}
+.os-form .btn-gold{border:none;cursor:pointer;font-size:13px;}
+.of-note{font-size:11.5px;margin-top:10px;color:#2e7d4f;}
+.of-note.err{color:#b0563a;}
+.ab-text{max-width:640px;font-size:13.5px;color:#4a5364;line-height:1.7;}
+.ab-text b{color:#16233c;}
+.ab-contact a{color:#a8843c;}
+@media(max-width:860px){.dk-grid,.bd-grid{grid-template-columns:1fr;}.of-row{flex-direction:column;}.fi-card{width:calc(100% - 28px);}}
+
 </style>
+<style>__LEAFLET_CSS__</style>
 </head>
 <body>
-<div id="bg"></div><div id="bgday"></div><div class="bgrid"></div>
-<div id="skyline">__SKYLINE_NIGHT____SKYLINE_DAY__</div><div id="sun"></div>
-<div id="leak"></div><div id="grain"></div>
-<div id="cursor"><span class="ring"></span><span class="dot"></span></div>
+<div id="grain"></div>
 
-<nav id="nav">
-  <div class="brand" data-nav="lobby"><img src="__LOGO__" alt="OG"><div><div class="bn sora">OG GROUP</div><div class="bs">Real Estate · Cleveland</div></div></div>
-  <div class="links">
-    <a data-nav="investors">Investors</a>
-    <a data-nav="partners">Wholesalers</a>
-    <a data-nav="about">About</a>
-    <a data-nav="faq">FAQ</a>
-    <a data-nav="investors" class="btn-gold mag">Join the Network</a>
-  </div>
-</nav>
 
-__VIEWS__
-
-<footer>
-  <div class="wrap">
-    <div class="top">
-      <div class="fbrand"><div class="bn">OG GROUP</div><p>Cleveland off-market real estate, run like software. Truth-only offers, an invite-based investor network.</p></div>
-      <div class="fnav">
-        <div class="col"><b>Explore</b><a data-nav="investors">Investors</a><a href="https://www.oggroupholdingsllc.com" target="_blank" rel="noopener">Selling a property?</a><a data-nav="partners">Wholesalers</a><a data-nav="about">About</a><a data-nav="faq">FAQ</a></div>
-        <div class="col"><b>Contact</b><a href="tel:+12166779031">(216) 677-9031</a><a href="mailto:og.group.holdings.llc@gmail.com">Email us</a></div>
-      </div>
+<!-- ======================= ENTRY — the only "website" there is ======================= -->
+<div id="entry">
+  <div class="en-sky">__SKYLINE_NIGHT__</div>
+  <div class="en-core">
+    <img class="en-logo" src="__LOGO__" alt="OG">
+    <div class="en-lines">
+      <div class="el e1">One system runs Cleveland's off-market.</div>
+      <div class="el e2">Deals are found, priced and matched <b>inside OG OS</b> — never on a spreadsheet.</div>
+      <div class="el e3">You're about to walk through it.</div>
     </div>
-    <div class="bot"><span>© 2026 OG Group Holdings LLC. All rights reserved. · Cleveland, Ohio</span><span class="mono">CLEVELAND, SYSTEMIZED</span></div>
+    <button id="enterBtn" class="btn-gold mag">Enter the system <span class="arr">→</span></button>
+    <div class="en-aud">INVESTORS · WHOLESALERS · SALES TEAMS</div>
   </div>
-</footer>
+  <div class="en-foot"><a href="https://www.oggroupholdingsllc.com" target="_blank" rel="noopener">Selling a property? This isn't your door — yours is here →</a></div>
+</div>
 
-<div id="lb" onclick="if(event.target===this)closeLB()"><div class="x" onclick="closeLB()">✕</div><video id="lbv" controls muted loop playsinline></video><div class="cap" id="lbcap"></div></div>
-<div id="portal"><div class="sweep"></div><img src="__LOGO__" alt=""></div>
+<!-- ======================= OG OS — the site IS the app ======================= -->
+<div id="os" class="hidden">
+  <div class="os-top">
+    <div class="os-logo">OG <b>OS</b> · Network Console</div>
+    <div class="os-search">Search leads, deals, investors…</div>
+    <div class="os-live"><i>●</i> LIVE · POOL 214 · HOT 9 · WARM 41</div>
+  </div>
+  <div class="os-body">
+    <div class="os-side" id="osSide">
+      <div class="lb">MISSION</div>
+      <div class="it" data-os="deck">Mission Deck</div>
+      <div class="lb">SALES</div>
+      <div class="it" data-os="leads">Leads Center</div>
+      <div class="it" data-os="field">Field Intel · Map</div>
+      <div class="it" data-os="rehab">Rehab AI</div>
+      <div class="it" data-os="dialer">Power Dialer</div>
+      <div class="lb">NETWORK</div>
+      <div class="it" data-os="board">Deal Board</div>
+      <div class="it" data-os="partner">Partner Desk</div>
+      <div class="lb">COMPANY</div>
+      <div class="it" data-os="about">About OG</div>
+      <div class="it" data-os="faq">FAQ</div>
+      <div class="os-exit"><a href="https://www.oggroupholdingsllc.com" target="_blank" rel="noopener">Selling a property? →</a></div>
+    </div>
+    <div class="os-main" id="osMain">__SCREENS__</div>
+  </div>
+  <div class="os-demo">DEMO — ALL DETAILS FICTIONAL</div>
+</div>
 
+<script>__LEAFLET_JS__</script>
 <script>__JS__</script>
-<!-- cursor removed -->
 </body>
 </html>

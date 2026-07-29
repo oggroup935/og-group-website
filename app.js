@@ -1,138 +1,172 @@
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const COARSE=matchMedia('(pointer:coarse)').matches;
+/* OG OS — the site IS the app.
+   Every datum rendered below is FICTIONAL: invented names, addresses, phones,
+   prices and deals with Cleveland flavor. The persistent on-screen chip says
+   so. Zero real leads, zero real people, zero internal economics. */
+const $=q=>document.querySelector(q),$$=q=>[...document.querySelectorAll(q)];
 
-/* ---- cursor (always visible, above lightbox) + ambient light-leak ---- */
-const leak=$('#leak'),cur=$('#cursor');
-let mx=innerWidth/2,my=innerHeight/2,lx=mx,ly=my;
-addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}});
-const HOT='a,button,[data-nav],.clip,.cube,.door,.door3,.faqrow,.tabs button,.x';
-document.addEventListener('mouseover',e=>{if(e.target.closest(HOT))cur&&cur.classList.add('big');});
-document.addEventListener('mouseout',e=>{if(e.target.closest(HOT))cur&&cur.classList.remove('big');});
-if(!COARSE)(function loop(){lx+=(mx-lx)*.06;ly+=(my-ly)*.06;
-  leak.style.background=`radial-gradient(440px circle at ${lx}px ${ly}px,rgba(201,164,92,.06),transparent 68%)`;
-  requestAnimationFrame(loop);})();
+/* ---- form relay: same activated FormSubmit inbox as the seller site, via
+   the alias hash so the raw address never appears in this page's source. */
+const OS_ENDPOINT='https://formsubmit.co/ajax/c46ef7933753685c01ab0f71af26c3b0';
 
-/* ---- reveals ---- */
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.15});
-function observeView(id){$$('#v-'+id+' .rv').forEach(el=>io.observe(el));}
+/* ================= ENTRY ================= */
+const entry=$('#entry'),os=$('#os');
+$$('.en-lines .el').forEach((el,i)=>setTimeout(()=>el.classList.add('on'),500+i*900));
+setTimeout(()=>{$('#enterBtn').classList.add('on');$('.en-aud').classList.add('on');},500+3*900);
+function enterOS(){entry.classList.add('gone');os.classList.remove('hidden');
+  setTimeout(()=>{entry.remove();},900);osGo(location.hash.replace('#','')||'deck');}
+$('#enterBtn').addEventListener('click',enterOS);
+if(location.hash&&document.getElementById('osv-'+location.hash.replace('#',''))){enterOS();}
 
-/* ---- decrypt ---- */
-function decrypt(el){const f=el.dataset.final,ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ$#/0123456789';if(RM){el.textContent=f;return;}
-  let fr=0;const id=setInterval(()=>{el.textContent=f.split('').map((c,i)=>c===' '?' ':(i<fr/2?f[i]:ch[Math.floor((i*7+fr)%ch.length)])).join('');fr++;if(fr/2>=f.length){clearInterval(id);el.textContent=f;}},34);}
-
-/* ---- theme ---- */
-const bgday=$('#bgday'),sklDay=$('#sklDay'),sun=$('#sun'),nav=$('#nav'),sunriseEl=$('#sunrise');
-let sunriseOn=true;
-function setTheme(t){
-  if(t==='sunrise'){sunriseOn=true;return;}
-  sunriseOn=false;
-  if(t==='day'){bgday.style.opacity=1;sklDay.style.opacity=1;sun.style.opacity=.9;nav.classList.add('day');}
-  else{bgday.style.opacity=0;sklDay.style.opacity=0;sun.style.opacity=0;nav.classList.remove('day');}
+/* ================= ROUTER ================= */
+const SCREENS=['deck','leads','field','rehab','dialer','board','partner','about','faq'];
+let fiMapBuilt=false;
+function osGo(id){
+  if(!SCREENS.includes(id))id='deck';
+  $$('.os-view').forEach(v=>v.classList.remove('on'));
+  $('#osv-'+id).classList.add('on');
+  $$('#osSide .it').forEach(it=>it.classList.toggle('on',it.dataset.os===id));
+  history.replaceState(null,'','#'+id);
+  const main=$('#osMain');if(main)main.scrollTop=0;
+  if(id==='field'&&!fiMapBuilt)setTimeout(buildMap,60);
+  if(id==='rehab')setTimeout(runRehab,350);
 }
-function onScroll(){if(!sunriseOn||!sunriseEl)return;const r=sunriseEl.getBoundingClientRect();const tot=r.height-innerHeight;
-  let p=tot>0?(-r.top)/tot:0;p=Math.max(0,Math.min(1,p));
-  bgday.style.opacity=p;sklDay.style.opacity=p;sun.style.opacity=p>.05?Math.min(1,p*2)*(1-Math.max(0,(p-.8)*5)):0;
-  sun.style.bottom=(12+p*30)+'vh';sunriseEl.classList.toggle('lit',p>.5);nav.classList.toggle('day',p>.5);
-  const dr=$('#doors').getBoundingClientRect();const fade=Math.max(0,Math.min(1,(dr.top-innerHeight*.4)/300));
-  $('#skyline').style.opacity=.35+fade*.65;}
-addEventListener('scroll',onScroll,{passive:true});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-os]');
+  if(t&&t.dataset.os){osGo(t.dataset.os);}
+});
 
-/* ---- router + portal ---- */
-const portal=$('#portal'),pimg=portal.querySelector('img'),sweep=portal.querySelector('.sweep');
-const THEME={lobby:'sunrise',investors:'night',partners:'night',about:'night',faq:'night'};
-function show(view){$$('.view').forEach(v=>v.classList.remove('active'));$('#v-'+view).classList.add('active');
-  setTheme(THEME[view]);scrollTo(0,0);observeView(view);onScroll();}
-function go(nav){
-  if(nav.endsWith('-cta')){location.href='mailto:og.group.holdings.llc@gmail.com';return;}
-  const view=nav;if(!THEME[view])return;
-  if(RM){show(view);return;}
-  portal.style.transition='transform .5s cubic-bezier(.22,1,.36,1)';portal.style.transformOrigin='bottom';portal.style.transform='scaleY(1)';
-  pimg.style.transition='opacity .4s .15s';pimg.style.opacity='1';
-  sweep.style.transition='none';sweep.style.left='-40%';requestAnimationFrame(()=>{sweep.style.transition='left .6s ease';sweep.style.left='100%';});
-  setTimeout(()=>{show(view);},520);
-  setTimeout(()=>{pimg.style.opacity='0';portal.style.transformOrigin='top';portal.style.transform='scaleY(0)';},650);
-}
-$$('[data-nav]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();go(el.dataset.nav);}));
+/* ================= LIVE TICKER ================= */
+const osLive=$('.os-live');let tick=0;
+setInterval(()=>{tick++;
+  const calls=118+Math.floor(tick/3)%9, convos=12+Math.floor(tick/8)%4;
+  if(osLive)osLive.innerHTML='<i>●</i> LIVE · POOL 214 · CALLS TODAY '+calls+' · CONVOS '+convos;
+  const dk=$('#dkCalls');if(dk)dk.textContent=calls;
+},1500);
 
-/* ---- lightbox ---- */
-const VID={field:{src:'__VFIELD__',cap:'FIELD INTEL · DEMO DATA · FICTIONAL PROPERTIES'},
-  net:{src:'__VNET__',cap:'INVESTOR NETWORK · DEMO ONLY · NAMES & DEALS NOT REAL'},
-  rehab:{src:'__VREHAB__',cap:'REHAB AI · DEMO ONLY · NOT A REAL LISTING'}};
-$$('.clip').forEach(el=>el.addEventListener('click',()=>{const d=VID[el.dataset.clip];const v=$('#lbv');
-  v.src=d.src;$('#lbcap').textContent=d.cap;$('#lb').classList.add('on');v.play().catch(()=>{});}));
-window.closeLB=()=>{const v=$('#lbv');v.pause();v.src='';$('#lb').classList.remove('on');};
-addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
-
-/* ---- faq ---- */
-$$('.faqrow').forEach(r=>r.addEventListener('click',()=>r.classList.toggle('open')));
-const FAQTABS=['inv','whl'];
-window.faqTab=(t,btn)=>{$$('.tabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
-  FAQTABS.forEach(k=>{const el=$('#faq-'+k);if(!el)return;el.style.display=k===t?'block':'none';
-    if(k===t)el.querySelectorAll('.rv').forEach(r=>r.classList.add('on'));});};
-
-
-/* ---- THE DIVE ---------------------------------------------------------- */
-/* Fictional dataset. Names, addresses and numbers are INVENTED — plausible
-   Cleveland flavor, zero real people. The visible chip on the screen says so. */
-const DV_LEADS=[
-  ['86','Marcus Bell','4127 Maplecrest Ave, Cleveland 44109','hot','$142K'],
-  ['83','Tanya Brooks','2731 Oakport Dr, Cleveland Hts 44118','hot','$168K'],
-  ['79','Rita Kowalski','1093 Ashford Rd, Parma 44134','warm','$118K'],
-  ['77','Dennis Okafor','2214 Birchwood Ct, Lakewood 44107','warm','$205K'],
-  ['74','Gloria Stanton','886 Fernhill Dr, Euclid 44117','warm','$96K'],
-  ['71','Ray Delgado','3340 Cobbler Ln, Garfield Hts 44125','warm','$130K'],
-  ['68','June Marsh','512 Willow Bend Ave, Cleveland 44102','warm','$155K'],
+/* ================= LEADS CENTER ================= */
+const LEADS=[
+ ['86','Marcus Bell','4127 Maplecrest Ave, Cleveland 44109','hot','$142K'],
+ ['83','Tanya Brooks','2731 Oakport Dr, Cleveland Hts 44118','hot','$168K'],
+ ['79','Rita Kowalski','1093 Ashford Rd, Parma 44134','warm','$118K'],
+ ['77','Dennis Okafor','2214 Birchwood Ct, Lakewood 44107','warm','$205K'],
+ ['74','Gloria Stanton','886 Fernhill Dr, Euclid 44117','warm','$96K'],
+ ['71','Ray Delgado','3340 Cobbler Ln, Garfield Hts 44125','warm','$130K'],
+ ['68','June Marsh','512 Willow Bend Ave, Cleveland 44102','warm','$155K'],
+ ['66','Walter Feld','7719 Larkspur St, Maple Hts 44137','warm','$88K'],
 ];
-/* the console feels alive: the LIVE ticker breathes while the dive is on screen */
-const dvLive=document.querySelector('.os-live');
-let dvT=0;
-setInterval(()=>{
-  if(!dvLive)return;const r=dive&&dive.getBoundingClientRect();
-  if(!r||r.bottom<0||r.top>innerHeight)return;
-  dvT++;
-  const calls=118+Math.floor(dvT/3)%7, convos=12+Math.floor(dvT/9)%3;
-  dvLive.innerHTML='<i>●</i> LIVE · POOL 214 · CALLS TODAY '+calls+' · CONVOS '+convos;
-},1400);
-const dvRows=$('#osRows');
-if(dvRows){
-  dvRows.innerHTML=DV_LEADS.map(l=>
-    '<div class="os-row"><div class="sc">'+l[0]+'</div><div><div class="nm">'+l[1]+
-    '</div><div class="ad">'+l[2]+'</div></div><div class="tg '+l[3]+'">'+l[3].toUpperCase()+
-    '</div><div class="pr">'+l[4]+'</div></div>').join('');
-}
-const dive=$('#dive'),dvMon=$('#dvMon'),dvBezel=$('#dvBezel'),dvStand=$('#dvStand'),
-      dvHead=$('#dvHead'),dvCap=$('#dvCap'),osLeads=$('#osLeads'),osRehab=$('#osRehab');
-const dvNarrow=matchMedia('(max-width:860px)');
-function diveScroll(){
-  if(!dive||dvNarrow.matches)return;
-  const r=dive.getBoundingClientRect();
-  const total=r.height-innerHeight;
-  const p=Math.min(1,Math.max(0,-r.top/total));   /* 0..1 through the section */
-  const z=Math.min(1,Math.max(0,(p-.05)/.24));   /* zoom waits a beat, then flies */
-  const e=1-Math.pow(1-z,3);                       /* easeOutCubic */
-  dvMon.style.setProperty('--dvs',(.42+.82*e).toFixed(4));
-  dvMon.style.setProperty('--dvy',(22-24*e).toFixed(2)+'vh');
-  dvBezel.style.opacity=dvStand.style.opacity=String(1-e);
-  const nav=$('#nav');if(nav){const full=e>.85&&p<.985;nav.style.opacity=full?'0':'1';nav.style.pointerEvents=full?'none':'auto';nav.style.transition='opacity .4s';}
-  dvHead.style.opacity=String(Math.max(0,1-z*2.2));
-  dvCap.style.opacity=p>.02&&p<.24?'1':'0';
-  const rows=dvRows?dvRows.children:[];
-  const lit=p>.30&&p<.52?Math.min(rows.length-1,Math.floor((p-.30)/.22*rows.length)):-1;
-  for(let i=0;i<rows.length;i++)rows[i].classList.toggle('lit',i===lit);
-  const rehabOn=p>=.54;
-  osLeads.classList.toggle('off',rehabOn);
-  osRehab.classList.toggle('off',!rehabOn);
-  if(rehabOn){
-    const q=Math.min(1,(p-.54)/.34);
-    $$('#osRehab .os-box').forEach((b,i)=>b.classList.toggle('show',q>.12+i*.14));
-    $$('#osRehab .os-line').forEach((l,i)=>l.classList.toggle('show',q>.18+i*.15));
-  }
-}
-addEventListener('scroll',diveScroll,{passive:true});
-diveScroll();
+const rowsEl=$('#osRows');
+if(rowsEl)rowsEl.innerHTML=LEADS.map(l=>
+ '<div class="os-row"><div class="sc">'+l[0]+'</div><div><div class="nm">'+l[1]+
+ '</div><div class="ad">'+l[2]+'</div></div><div class="tg '+l[3]+'">'+l[3].toUpperCase()+
+ '</div><div class="pr">'+l[4]+'</div></div>').join('');
 
-/* ---- boot ---- */
-observeView('lobby');
-$$('#v-lobby .decrypt').forEach((el,i)=>setTimeout(()=>decrypt(el),400+i*250));
-onScroll();
+/* ================= FIELD INTEL MAP =================
+   Real, draggable Cleveland map (OpenStreetMap tiles); the PINS are fictional
+   properties at street-less approximate coordinates. */
+const PINS=[
+ [41.4470,-81.7220,'$142K',86,'4127 Maplecrest Ave','3 bd · 1,410 sqft · High equity'],
+ [41.5060,-81.5560,'$168K',83,'2731 Oakport Dr','4 bd · 1,780 sqft · Estate'],
+ [41.3880,-81.7290,'$118K',79,'1093 Ashford Rd','3 bd · 1,220 sqft · Tired landlord'],
+ [41.4830,-81.7980,'$205K',77,'2214 Birchwood Ct','4 bd · 2,050 sqft · Relocation'],
+ [41.5670,-81.5460,'$96K',74,'886 Fernhill Dr','2 bd · 980 sqft · Vacant'],
+ [41.4170,-81.6050,'$130K',71,'3340 Cobbler Ln','3 bd · 1,350 sqft · High equity'],
+ [41.4720,-81.7390,'$155K',68,'512 Willow Bend Ave','3 bd · 1,500 sqft · Probate'],
+ [41.4150,-81.5610,'$88K',66,'7719 Larkspur St','2 bd · 910 sqft · As-is'],
+ [41.4580,-81.6690,'$175K',73,'2908 Quarry View Rd','3 bd · 1,640 sqft · Downsizing'],
+ [41.5230,-81.6010,'$122K',69,'1544 Bramble Ct','3 bd · 1,280 sqft · Vacant'],
+];
+function buildMap(){
+  if(typeof L==='undefined'||!$('#fiMap'))return;
+  fiMapBuilt=true;
+  const m=L.map('fiMap',{scrollWheelZoom:true}).setView([41.4720,-81.6680],11);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {maxZoom:18,attribution:'© OpenStreetMap'}).addTo(m);
+  PINS.forEach(p=>{
+    const ic=L.divIcon({className:'',html:'<div class="fi-pin">'+p[2]+'</div>',iconSize:[0,0]});
+    L.marker([p[0],p[1]],{icon:ic}).addTo(m).on('click',()=>{
+      $('#fiScore').textContent=p[3];
+      $('#fiName').textContent=p[4]+'  (fictional)';
+      $('#fiMeta').textContent=p[5];
+      $('#fiCard').classList.add('on');
+    });
+  });
+  m.on('click',()=>$('#fiCard').classList.remove('on'));
+}
+
+/* ================= REHAB AI ================= */
+function runRehab(){
+  $$('#osv-rehab .os-box').forEach((b,i)=>setTimeout(()=>b.classList.add('show'),400+i*450));
+  $$('#osv-rehab .os-line').forEach((l,i)=>setTimeout(()=>l.classList.add('show'),700+i*420));
+}
+const rr=$('#rehabRun');
+if(rr)rr.addEventListener('click',()=>{
+  $$('#osv-rehab .os-box').forEach(b=>b.classList.remove('show'));
+  $$('#osv-rehab .os-line').forEach(l=>l.classList.remove('show'));
+  setTimeout(runRehab,150);
+});
+
+/* ================= POWER DIALER FLOOR ================= */
+const PL=[
+ ['Queued','Alma Reyes','Cleveland 44111'],
+ ['Ringing','Chester Polk','Parma Hts 44130'],
+ ['Talking · 1:42','Dora Whitfield','Euclid 44119'],
+ ['Follow-up set','Gene Marsh','Lakewood 44107'],
+ ['Qualified ✓','Tom Okada','Garfield Hts 44125'],
+];
+const plEl=$('#plRows');
+if(plEl)plEl.innerHTML=PL.map((r,i)=>
+ '<div class="os-row"><div class="sc" style="font-size:9px;">'+(i+1)+'</div><div><div class="nm">'+r[1]+
+ '</div><div class="ad">'+r[2]+'</div></div><div class="tg '+(r[0].startsWith('Qual')?'hot':'warm')+'">'+r[0]+'</div></div>').join('');
+let plT=0;
+setInterval(()=>{plT++;const d=$('#plDialed'),re=$('#plReached');
+  const v=$('#osv-dialer');if(!v||!v.classList.contains('on'))return;
+  if(d)d.textContent=42+plT%6;if(re)re.textContent=7+Math.floor(plT/4)%3;
+},1800);
+
+/* ================= DEAL BOARD ================= */
+const DEALS=[
+ ['West Park pocket','3 bd · brick · roof 2019','MATCHED · 4 BUYERS',''],
+ ['Garfield Hts double','2-unit · long-term tenants','RESERVED IN 3H','res'],
+ ['Euclid corner lot','3 bd · needs cosmetics','NEW THIS WEEK',''],
+];
+const bd=$('#bdGrid');
+if(bd)bd.innerHTML=DEALS.map(d=>
+ '<div class="bd-card"><img src="__DVPHOTO__" alt=""><div class="bd-b"><div class="bd-t">'+d[0]+
+ ' <span class="fict">(fictional)</span></div><div class="bd-m">'+d[1]+'</div><span class="bd-s '+d[3]+'">'+d[2]+'</span></div></div>').join('');
+
+/* ================= FORMS (really delivered) =================
+   Same honest logic as the seller site: read the relay's body; success:false
+   means NOT delivered — never print a green lie. */
+function osSend(btn,note,fields,subject){
+  const data={};let missing=false;
+  for(const k in fields){const v=(fields[k].value||'').trim();if(!v&&k!=='note'&&k!=='zip')missing=true;data[k]=v;}
+  if(missing){note.textContent='Fill the fields first — name, phone, email.';note.classList.add('err');return;}
+  btn.disabled=true;btn.textContent='Sending…';note.textContent='';note.classList.remove('err');
+  fetch(OS_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify(Object.assign({_subject:subject,_template:'table',_captcha:'false',
+      source:'network site (OG OS demo)'},data))})
+    .then(r=>r.text().then(t=>{let j=null;try{j=JSON.parse(t);}catch(_){}return {ok:r.ok,j};}))
+    .then(res=>{
+      const delivered=res.ok&&(!res.j||String(res.j.success)!=='false');
+      if(!delivered)throw new Error('relay refused');
+      note.textContent="Got it — it's with us. We'll come back to you within 24–48 hours.";
+      btn.textContent='Sent ✓';
+    })
+    .catch(()=>{
+      note.textContent="Couldn't confirm the send — call or text us at (216) 677-9031 and we'll take it from there.";
+      note.classList.add('err');btn.disabled=false;btn.textContent='Try again →';
+    });
+}
+const invBtn=$('#invSend');
+if(invBtn)invBtn.addEventListener('click',()=>osSend(invBtn,$('#invNote'),
+ {name:$('#inv_name'),phone:$('#inv_phone'),email:$('#inv_email'),zip:$('#inv_zip'),note:$('#inv_box')},
+ 'Investor network application — network site'));
+const ptBtn=$('#ptSend');
+if(ptBtn)ptBtn.addEventListener('click',()=>osSend(ptBtn,$('#ptNote'),
+ {name:$('#pt_name'),phone:$('#pt_phone'),email:$('#pt_email'),role:$('#pt_role'),note:$('#pt_note')},
+ 'Partner Desk application — network site'));
+
+/* ================= FAQ ================= */
+$$('.faqrow').forEach(r=>r.addEventListener('click',()=>r.classList.toggle('open')));
+window.faqTab=(t,btn)=>{$$('.tabs button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  ['inv','whl'].forEach(k=>{const el=$('#faq-'+k);if(el)el.style.display=k===t?'block':'none';});};

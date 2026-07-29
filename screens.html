@@ -1,0 +1,171 @@
+<!-- ==================== OG OS SCREENS ====================
+     Every name, address, number and deal below is FICTIONAL — invented for
+     this public demo. The persistent chip on the shell declares it. -->
+
+<!-- ~~~~~~~~~~ MISSION DECK ~~~~~~~~~~ -->
+<div class="os-view on" id="osv-deck">
+  <h3 class="os-h1">Good evening.</h3>
+  <p class="os-sub">This is OG OS — the system our whole Cleveland operation runs on. You're inside a live demo of it right now. Walk anywhere.</p>
+  <div class="os-stats">
+    <div class="os-stat"><b>214</b><span>ACTIVE LEADS</span></div>
+    <div class="os-stat"><b class="gold">9</b><span>HOT · 80+</span></div>
+    <div class="os-stat"><b id="dkCalls">118</b><span>CALLS TODAY</span></div>
+    <div class="os-stat"><b>166</b><span>PROPERTIES ON MAP</span></div>
+    <div class="os-stat"><b class="gold">44</b><span>ACTIVE BUYERS</span></div>
+  </div>
+  <div class="dk-grid">
+    <div class="dk-card" data-os="board">
+      <div class="dk-k">INVESTORS</div>
+      <h4>The deals find you.</h4>
+      <p>Define your buy-box once. Matched, scored off-market deals land in your feed — reserve from inside.</p>
+      <span class="dk-go">Open the Deal Board →</span>
+    </div>
+    <div class="dk-card" data-os="partner">
+      <div class="dk-k">WHOLESALERS</div>
+      <h4>Your whole operation, one login.</h4>
+      <p>Field map, comps, AI underwrite, and a matched buyer network behind every contract you sign.</p>
+      <span class="dk-go">Open the Partner Desk →</span>
+    </div>
+    <div class="dk-card" data-os="dialer">
+      <div class="dk-k">SALES TEAMS</div>
+      <h4>Your sales floor lives here.</h4>
+      <p>Queues, scripts, follow-ups, team metrics. The system dials — your people talk to humans.</p>
+      <span class="dk-go">Walk the floor →</span>
+    </div>
+  </div>
+  <div class="dk-map" data-os="field">
+    <div class="dk-mapline"><b>Field Intel — Cleveland.</b> 166 properties, 259 comps, investor heat. Step onto the map →</div>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~ LEADS CENTER ~~~~~~~~~~ -->
+<div class="os-view" id="osv-leads">
+  <h3 class="os-h1">Leads Center</h3>
+  <p class="os-sub">Scored &amp; prioritized — hottest first. All entries fictional.</p>
+  <div class="os-stats">
+    <div class="os-stat"><b>214</b><span>ACTIVE LEADS</span></div>
+    <div class="os-stat"><b class="gold">9</b><span>HOT · 80+</span></div>
+    <div class="os-stat"><b>41</b><span>WARM · 65–79</span></div>
+    <div class="os-stat"><b class="gold">17</b><span>OFFERS OUT</span></div>
+  </div>
+  <div class="os-rows" id="osRows"></div>
+</div>
+
+<!-- ~~~~~~~~~~ FIELD INTEL / MAP ~~~~~~~~~~ -->
+<div class="os-view" id="osv-field">
+  <h3 class="os-h1">Field Intel — Cleveland</h3>
+  <p class="os-sub">Every property, comp and buyer signal on one live map. Drag it, click a pin, step back out whenever you like. Pins are fictional.</p>
+  <div class="fi-wrap">
+    <div id="fiMap"></div>
+    <div class="fi-card" id="fiCard">
+      <img id="fiImg" src="__DVPHOTO__" alt="">
+      <div class="fi-body">
+        <div class="fi-score" id="fiScore">72</div>
+        <div>
+          <div class="fi-name" id="fiName">4127 Maplecrest Ave</div>
+          <div class="fi-meta" id="fiMeta">3 bd · 1,410 sqft · High equity</div>
+        </div>
+      </div>
+      <button class="fi-go" data-os="rehab">Run Rehab AI on this property →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~ REHAB AI ~~~~~~~~~~ -->
+<div class="os-view" id="osv-rehab">
+  <h3 class="os-h1">Rehab AI · 4127 Maplecrest Ave <span class="fict">(FICTIONAL)</span></h3>
+  <p class="os-sub">AI reads the photos, prices the work, builds the underwrite.</p>
+  <button class="btn-gold os-run" id="rehabRun">Run the AI read →</button>
+  <div class="os-rehab">
+    <div class="os-photo">
+      <img src="__DVPHOTO__" alt="">
+      <div class="os-box" style="top:37%;left:28%;width:42%;height:17%;"><span>ROOF · WEATHERED</span></div>
+      <div class="os-box" style="top:60%;left:13%;width:27%;height:27%;"><span>WINDOWS ×3</span></div>
+      <div class="os-box" style="top:56%;left:66%;width:26%;height:30%;"><span>SIDING · REPAINT</span></div>
+    </div>
+    <div class="os-lines">
+      <div class="os-line"><div class="t">Roof — partial replace<span class="s">AI estimate · 2 comps nearby</span></div><div class="v">$8,400</div></div>
+      <div class="os-line"><div class="t">Exterior paint + siding<span class="s">1,860 sq ft</span></div><div class="v">$5,100</div></div>
+      <div class="os-line"><div class="t">Windows ×3 · HVAC service<span class="s">standard grade</span></div><div class="v">$3,750</div></div>
+      <div class="os-line"><div class="t">Interior refresh<span class="s">flooring · kitchen · bath</span></div><div class="v">$14,200</div></div>
+      <div class="os-line total"><div class="t">Full underwrite ready<span class="s" style="color:#9fb0cf;">ARV · comps · rehab · confidence 94%</span></div><div class="v">READY →</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~ POWER DIALER / SALES FLOOR ~~~~~~~~~~ -->
+<div class="os-view" id="osv-dialer">
+  <h3 class="os-h1">Power Dialer — the floor</h3>
+  <p class="os-sub">The system dials. Your people talk to humans. Fictional session below.</p>
+  <div class="os-stats">
+    <div class="os-stat"><b id="plDialed">42</b><span>DIALED</span></div>
+    <div class="os-stat"><b class="gold" id="plReached">7</b><span>REACHED</span></div>
+    <div class="os-stat"><b id="plTalk">0:38</b><span>AVG TALK</span></div>
+    <div class="os-stat"><b class="gold">3</b><span>QUALIFIED</span></div>
+  </div>
+  <div class="os-rows" id="plRows"></div>
+  <div class="pd-pitch">
+    <h4>Run your cold-calling operation here.</h4>
+    <p>Acquisition managers and calling teams get workspaces: queues, scripts, follow-ups, per-rep metrics — the whole floor, one login.</p>
+    <button class="btn-gold" data-os="partner">Bring your floor into OG OS →</button>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~ DEAL BOARD (INVESTORS) ~~~~~~~~~~ -->
+<div class="os-view" id="osv-board">
+  <h3 class="os-h1">Deal Board</h3>
+  <p class="os-sub">What members see. Sample cards — fictional properties, fictional numbers.</p>
+  <div class="bd-grid" id="bdGrid"></div>
+  <div class="os-form" id="invForm">
+    <h4>Join the investor network</h4>
+    <p>Tell us your buy-box once. Deals that fit find you.</p>
+    <div class="of-row"><input id="inv_name" placeholder="Full name"><input id="inv_phone" placeholder="Phone"></div>
+    <div class="of-row"><input id="inv_email" placeholder="Email" type="email"><input id="inv_zip" placeholder="Target areas / ZIPs"></div>
+    <div class="of-row"><input id="inv_box" placeholder="Buy-box in one line — e.g. SFH under $150K, any condition"></div>
+    <button class="btn-gold" id="invSend">Request access →</button>
+    <div class="of-note" id="invNote"></div>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~ PARTNER DESK (WHOLESALERS + SALES TEAMS) ~~~~~~~~~~ -->
+<div class="os-view" id="osv-partner">
+  <h3 class="os-h1">Partner Desk</h3>
+  <p class="os-sub">Wholesalers, acquisition managers, calling teams — this is the door in.</p>
+  <div class="os-form">
+    <h4>Apply for access</h4>
+    <div class="of-row"><input id="pt_name" placeholder="Full name"><input id="pt_phone" placeholder="Phone"></div>
+    <div class="of-row"><input id="pt_email" placeholder="Email" type="email">
+      <select id="pt_role"><option value="">I am a…</option><option>Wholesaler</option><option>Acquisition manager</option><option>Cold-calling team</option><option>Investor-agent</option></select></div>
+    <div class="of-row"><input id="pt_note" placeholder="One line about your operation"></div>
+    <button class="btn-gold" id="ptSend">Apply →</button>
+    <div class="of-note" id="ptNote"></div>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~ ABOUT ~~~~~~~~~~ -->
+<div class="os-view" id="osv-about">
+  <h3 class="os-h1">About OG</h3>
+  <p class="os-sub">OG Group Holdings LLC · Cleveland, Ohio.</p>
+  <div class="ab-text">
+    <p>We buy and assign off-market residential deals in Cleveland, and we run the entire operation on software we built for ourselves — OG OS. Every number we show a partner is a number the system can defend: real comps, real underwriting, a human quality gate before anything moves.</p>
+    <p><b>Truth-only.</b> No invented track record, no recycled photos, no pressure. The demo you're walking through uses fictional data — because our real pipeline belongs to the people in it.</p>
+    <p class="ab-contact">Talk to us: <b>(216) 677-9031</b> · <a href="mailto:og.group.holdings.llc@gmail.com">og.group.holdings.llc@gmail.com</a></p>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~ FAQ ~~~~~~~~~~ -->
+<div class="os-view" id="osv-faq">
+  <h3 class="os-h1">FAQ</h3>
+  <div class="tabs"><button class="on" onclick="faqTab('inv',this)">For Investors</button><button onclick="faqTab('whl',this)">For Wholesalers &amp; Teams</button></div>
+  <div id="faq-inv">
+    <div class="faqrow"><q>How do I get on the list?<span class="pl">+</span></q><div class="a">Request access on the Deal Board and define your buy-box. That's all it takes to start receiving matched deals.</div></div>
+    <div class="faqrow"><q>What's a buy-box?<span class="pl">+</span></q><div class="a">Your criteria: areas, price range, condition, strategy. Every deal is scored against it.</div></div>
+    <div class="faqrow"><q>Will you blast my info?<span class="pl">+</span></q><div class="a">Never. Contact details are protected, and you only receive deals that fit.</div></div>
+    <div class="faqrow"><q>Are these real deals?<span class="pl">+</span></q><div class="a">Yes — truth-only. Every deal passes a human quality gate with real comps before it reaches you. (This public demo, however, shows fictional data.)</div></div>
+  </div>
+  <div id="faq-whl" style="display:none;">
+    <div class="faqrow"><q>What do partners get?<span class="pl">+</span></q><div class="a">The tools we use ourselves: field map, comps, AI rehab underwrite, dialing workspaces — plus a matched buyer network for your contracts.</div></div>
+    <div class="faqrow"><q>What does it cost?<span class="pl">+</span></q><div class="a">Access is invite-based. Apply at the Partner Desk and we'll talk it through.</div></div>
+    <div class="faqrow"><q>Can my calling team work here?<span class="pl">+</span></q><div class="a">Yes — workspaces are built for teams: queues, scripts, follow-ups and per-rep metrics.</div></div>
+  </div>
+</div>
