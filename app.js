@@ -30,10 +30,14 @@ function osGo(id){
   if(!osGo._silent)history.pushState({os:id},'','#'+id);
   const main=$('#osMain');if(main)main.scrollTop=0;
   if(id==='field'&&!fiMapBuilt)setTimeout(buildMap,60);
-  if(id==='rehab')setTimeout(runRehab,350);
+  if(id==='rehab'){const s=window.OS_SEL;
+    if(s)$('#rehabAddr').textContent='Rehab AI \u00b7 '+s[4]+' ';
+    setTimeout(runRehab,350);}
 }
 addEventListener('popstate',e=>{const id=(e.state&&e.state.os)||location.hash.replace('#','')||'deck';
   osGo._silent=true;osGo(id);osGo._silent=false;});
+document.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&e.target.dataset&&e.target.dataset.os){e.preventDefault();osGo(e.target.dataset.os);}});
 document.addEventListener('click',e=>{
   const t=e.target.closest('[data-os]');
   if(t&&t.dataset.os){osGo(t.dataset.os);}
@@ -92,6 +96,7 @@ function buildMap(){
       $('#fiName').textContent=p[4]+'  (fictional)';
       $('#fiMeta').textContent=p[5];
       $('#fiCard').classList.add('on');
+      window.OS_SEL=p;                       /* rehab screen follows the pin */
     });
   });
   m.on('click',()=>$('#fiCard').classList.remove('on'));
@@ -145,6 +150,7 @@ function osSend(btn,note,fields,subject){
   const data={};let missing=false;
   for(const k in fields){const v=(fields[k].value||'').trim();if(!v&&k!=='note'&&k!=='zip')missing=true;data[k]=v;}
   if(missing){note.textContent='Fill the fields first — name, phone, email.';note.classList.add('err');return;}
+  if(data.email&&!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(data.email)){note.textContent='That email doesn\u2019t look right — check it and try again.';note.classList.add('err');return;}
   btn.disabled=true;btn.textContent='Sending…';note.textContent='';note.classList.remove('err');
   fetch(OS_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
     body:JSON.stringify(Object.assign({_subject:subject,_template:'table',_captcha:'false',
