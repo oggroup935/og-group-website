@@ -4,5 +4,18 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "os.oggroupholdingsllc.com"
+        }
+      ],
+      "destination": "https://www.oggroupholdingsllc.com/os",
+      "permanent": false
+    }
+  ]
 }
