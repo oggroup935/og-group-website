@@ -172,7 +172,7 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const N = SCENES.length;
 const NN = String(N).padStart(2,'0');
 
-document.getElementById('track').style.height = ((N + 2.2) * 100) + 'vh';
+document.getElementById('track').style.height = ((N + 2.2) * 65) + 'vh';
 
 /* build scenes */
 const els = SCENES.map((s,i)=>{
@@ -270,22 +270,25 @@ function render(){
     const hsl = el.querySelector('.hsl');
     if (q < -0.5 || q > 1.05) { el.style.opacity = '0'; el.style.zIndex = 1; return; }
 
-    let scale, blur, bright, op, z;
+    let scale, blur, bright, op, z, ty;
     if (q <= 0) {
       const t = smooth(clamp((q + 0.5) / 0.5, 0, 1));
-      scale = 0.16 + 0.84 * t;
+      scale = 0.16 + 0.86 * t;
       blur = (1 - t) * 14;
       bright = 0.55 + 0.45 * t;
       op = Math.pow(t, 1.4);
-      z = 5;
-    } else if (q <= 0.62) {
-      /* LANDED — long, sharp hold: the full screen, no blur, barely-there push */
-      scale = 1 + (q / 0.62) * 0.018;
+      z = 5; ty = 0.35;
+    } else if (q <= 0.45) {
+      /* LANDED — sharp hold, but ALIVE: a gentle drift answers every scroll tick */
+      const t = q / 0.45;
+      scale = 1.02;
+      ty = (0.5 - t) * 0.7;
       blur = 0; bright = 1; op = 1; z = 8;
     } else {
-      /* DIVE — only once you keep scrolling past the hold */
-      const t = ease(clamp((q - 0.62) / 0.38, 0, 1));
+      /* DIVE — smooth long transition once you scroll past the hold */
+      const t = ease(clamp((q - 0.45) / 0.55, 0, 1));
       scale = 1.02 + t * 5.2;
+      ty = -0.35;
       blur = t * 16;
       bright = 1 + t * 0.55;
       op = 1 - Math.pow(t, 1.6);
@@ -293,11 +296,11 @@ function render(){
     }
     el.style.opacity = String(op);
     el.style.zIndex = z;
-    ph.style.transform = `scale(${scale})`;
+    ph.style.transform = `translateY(${ty}%) scale(${scale})`;
     ph.style.filter = (blur>0.4||bright!==1) ? `blur(${blur}px) brightness(${bright})` : '';
 
     const mStart = (i === 0) ? 0.16 : -0.10;
-    const mq = clamp(Math.min((q - mStart) / 0.08, (0.66 - q) / 0.10), 0, 1);
+    const mq = clamp(Math.min((q - mStart) / 0.08, (0.49 - q) / 0.09), 0, 1);
     meta.style.opacity = String(smooth(mq));
     meta.style.transform = `translateY(${(1 - smooth(mq)) * 40}px)`;
     if (hsl){
@@ -308,7 +311,7 @@ function render(){
   });
 
   const frac = ((p % 1) + 1) % 1;
-  const transit = clamp(1 - Math.abs(frac - 0.82) / 0.20, 0, 1);
+  const transit = clamp(1 - Math.abs(frac - 0.72) / 0.24, 0, 1);
   const bh = (p > 0.35 && p < N - 0.3) ? transit * 7 : 0;
   barT.style.height = bh + 'vh';
   barB.style.height = bh + 'vh';
@@ -327,7 +330,7 @@ function render(){
 }
 
 function tick(){
-  p += (target - p) * 0.17;
+  p += (target - p) * 0.22;
   if (Math.abs(target - p) < 0.0004) p = target;
   render();
   requestAnimationFrame(tick);
